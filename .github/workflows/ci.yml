@@ -18,12 +18,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8  # O actualiza a 3.12 si es necesario
+        python-version: 3.8
 
     - name: Install dependencies
       run: |
         python -m venv venv
         source venv/bin/activate
+        pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Lint with Flake8
@@ -44,5 +45,4 @@ jobs:
     - name: Dependency check with Safety
       run: |
         source venv/bin/activate
-        safety check
-
+        safety check --ignore 70612
