@@ -1,0 +1,6 @@
+Flask
+flake8
+pytest
+bandit
+safety
+requests
