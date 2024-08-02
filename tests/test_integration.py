@@ -1,7 +1,17 @@
 import pytest
-import requests
+from app import create_app
 
-def test_index():
-    response = requests.get('http://localhost:5000/')
-    assert response.status_code == 200
-    assert response.json()['message'] == 'Hello, World!'
+
+@pytest.fixture
+def client():
+    app = create_app()
+    app.config['TESTING'] = True
+    with app.test_client() as client:
+        yield client
+
+
+def test_index(client):
+    rv = client.get('/')
+    json_data = rv.get_json()
+    assert json_data['message'] == 'Hello, World!'
+
